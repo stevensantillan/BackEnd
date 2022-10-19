@@ -43,15 +43,18 @@ async deleteAll(){
     }
 }
 
-async save(nombre, precio, id) 
+async save(nombre, precio) 
     {
         try{
             const contenido = JSON.parse(await fs.readFile(`./${this.route}`,'utf-8'))
-            await fs.appendFile(`./${this.route}`, JSON.stringify({
+            const generarId = Object.keys(contenido).length
+            const nuevoProd = {
                 nombre: nombre,
                 precio: precio,
-                id: id
-            }, null, 2)) 
+                id: (generarId + 1)
+            }
+            contenido.push(nuevoProd) 
+            await fs.writeFile(`./${this.route}`,JSON.stringify(contenido,null,2))
         }catch (error) {
             console.log(error)
         }
@@ -61,7 +64,7 @@ async save(nombre, precio, id)
 
 const ruta = new Contenedor ('productos.json')
 ruta.getAll()
-ruta.save("prod3",234,3)
+ruta.getById(3)
 
 
 
