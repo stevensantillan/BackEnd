@@ -8,7 +8,8 @@ class Contenedor {
 async getAll(){
     try{
         const contenido = JSON.parse(await fs.readFile(`./${this.route}`,'utf-8'))
-        console.log(contenido)
+        console.log(contenido);
+        return contenido;
     } catch (error){
         console.log(error)
     }}
@@ -60,11 +61,25 @@ async save(nombre, precio)
         }
 }
 
+async getRandom() {
+    try {
+        const get = await this.getAll();
+        const randomItem = Math.floor(Math.random()*get.length);
+        const getRandom = get[randomItem];
+        return getRandom;
+    }
+    catch (err) {
+        console.log(`Reading ERR! ${err}`);
+    }
+};
+
 }
 
 const ruta = new Contenedor ('productos.json')
 ruta.getAll()
 ruta.getById(3)
+
+module.exports = Contenedor;
 
 
 
