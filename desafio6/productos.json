@@ -1,0 +1,14 @@
+[
+  {
+    "title": "producto1",
+    "price": 1000,
+    "thumbnail": "https://www.freepng.es/png-nkwnbe/",
+    "id": 1
+  },
+  {
+    "title": "raton",
+    "price": 50,
+    "thumbnail": "https://www.freepng.es/png-0p1oql/",
+    "id": 2
+  }
+]
