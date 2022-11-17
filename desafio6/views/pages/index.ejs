@@ -14,9 +14,16 @@
         </header>
         <main class="container">
                 <%- include('../partials/form'); %>
-                <div id="tabla"></div>
         </main>
+        <div id="tabla"></div>
+        <main class="container">
+            <h1>Chat</h1>
+            <%- include('../partials/chat'); %>
+            <div id="mensajes"></div>
+        </main>
+        
         <script src="https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js"></script>
-        <script src="./js/client.js"></script>
+        <script src="../../public/main.js"></script>
+        
     </body>
 </html>

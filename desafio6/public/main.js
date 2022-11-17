@@ -1,13 +1,14 @@
-window.onload = () => {
-    const socket = io();
 
+    const socket = io({ path: "/socket.io" });
+
+    
     socket.on("productos", listaProductos => {
         loadProds(listaProductos)
     })
 
-    async function loadProds(listProd) {
+    function loadProds(listProd) {
         let htmlProd = ''
-        const tableList = await fetch('views/partials/table.ejs').then(res => res.text())
+        const tableList = fetch('views/partials/table.ejs').then(res => res.text())
  
         if (listProd.length === 0){
             htmlProd = `<h4>No se encontraron productos.</h4>`
@@ -27,4 +28,33 @@ window.onload = () => {
     socket.emit("guardarNuevoProducto",nuevoProducto)
     })
 
-}
+
+    function AddMessage() {
+        const mail = document.getElementById("mail").value;
+        const mensaje = document.getElementById("mensaje").value;
+
+        const nuevoMensaje = {
+            mail: mail,
+            mensaje: mensaje
+        };
+
+        socket.emit("nuevoMensaje", nuevoMensaje);
+        return false;
+    }
+
+    function render(data) {
+        const html = data.map((el, index) => {
+            return (`
+                    <div>
+                        <strong>${el.email}</strong>;
+                        <em>${el.mensaje}</em>
+                    </div>`);
+        }).join(" ");
+
+        document.getElementById("messages").innerHTML = html;
+    }
+
+    socket.on("messages", (data) => {
+        render(data);  
+      })
+
